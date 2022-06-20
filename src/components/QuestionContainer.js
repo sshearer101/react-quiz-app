@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Question from "./Question"
 
 export default function QuestionContainer({data}){
     const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -8,9 +7,9 @@ export default function QuestionContainer({data}){
 
 
     function handleAnswer(x){
-        console.log(x === true)
         if(x){
             setScore(score + 1)
+
         }
         const nextQuestion = currentQuestion + 1
         if(nextQuestion < data.length){
@@ -26,18 +25,23 @@ export default function QuestionContainer({data}){
     return(
         <div>
                 { showScore  ? (
-                <div> You scored {score} out of {data.length} </div>
+                <div className="score-div"> You scored {score} out of {data.length} </div>
             ) : (
                 <>
-                <div className='question-section'>
+                <div className='question-div'>
                     <div className='question-count'>
                         <span>Question {currentQuestion + 1}</span>/{data.length}
                     </div>
                     <div className='question-text'>{data[currentQuestion].questionText}</div>
                 </div>
-                <div className='answer-section'>
-                    {data[currentQuestion].answerOptions.map((x) => 
-                        <button onClick={() => handleAnswer(x.isCorrect)}>{x.answerText}</button>
+                <div className='answer-div'>
+                    {data[currentQuestion].answerOptions.map((x, i) => 
+                        <button 
+                            key={i} 
+                            onClick={() => handleAnswer(x.isCorrect)}
+                            className={x === true ? "correct" : "incorrect"}
+                        
+                        >{x.answerText}</button>
                     )}
                 </div>
             </>
