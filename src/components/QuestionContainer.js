@@ -4,12 +4,12 @@ export default function QuestionContainer({data}){
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [showScore, setShowScore] = useState(false)
     const [score, setScore] = useState(0)
+    const [selectedId, setSelectedId] = useState()
 
 
     function handleAnswer(x){
-        if(x){
+        if(x === true){
             setScore(score + 1)
-
         }
         const nextQuestion = currentQuestion + 1
         if(nextQuestion < data.length){
@@ -39,7 +39,7 @@ export default function QuestionContainer({data}){
                         <button 
                             key={i} 
                             onClick={() => handleAnswer(x.isCorrect)}
-                            className={x === true ? "correct" : "incorrect"}
+                            // className={i === selectedId && x.isCorrect ? "styleForCorrectAnswer" : x.i === selectedId && !x.isCorrect ? "styleForWrongAnswer" : "styleForDefaultAnswer"}
                         
                         >{x.answerText}</button>
                     )}
